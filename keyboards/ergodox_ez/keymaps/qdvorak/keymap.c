@@ -144,6 +144,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
+static bool g_last_qwerty_state = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
@@ -163,10 +165,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // TODO(fyhuang): use timer to make caps also function as ESC on short press?
     if (record->event.pressed) {
         register_code(KC_LCTL);
+        // Remember state of QWRT layer before key pressed
+        g_last_qwerty_state = layer_state & (1<<QWRT);
         layer_on(QWRT);
     }
     else {
-        layer_off(QWRT);
+        if (!g_last_qwerty_state) {
+            layer_off(QWRT);
+        }
         unregister_code(KC_LCTL);
     }
     return false;
