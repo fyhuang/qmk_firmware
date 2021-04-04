@@ -1,2 +1,2 @@
 NO_USB_STARTUP_CHECK = yes
-DEBOUNCE_TYPE = sym_g
+DEBOUNCE_TYPE = sym_eager_pr
