@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_VOLU,      KC_6,    KC_7,    KC_8,    KC_9,     KC_0,              KC_BSLS,
   TT(SYMB),     KC_F,    KC_G,    KC_C,    KC_R,     KC_L,              KC_SLSH,
                 KC_D,    KC_H,    KC_T,    KC_N,     KC_S,              GUI_T(KC_MINS),
-  KC_CAPSLOCK,  KC_B,    KC_M,    KC_W,    KC_V,     ALT_T(KC_Z),       KC_RSFT,
+  KC_CAPS_LOCK, KC_B,    KC_M,    KC_W,    KC_V,     ALT_T(KC_Z),       KC_RSFT,
                          KC_DOWN, KC_UP,   KC_LBRC,  KC_RBRC,           FULL_RESET,
   KC_ESC, KC_APP,
   KC_PGUP,
@@ -115,10 +115,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   |       |      |      |      |      |                                       |      |    . |   0  |   =  | VRSN |
  *   `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |Animat|      |       |Toggle|Solid |
+ *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
- *                                 |Bright|Bright|      |       |      |Hue-  |Hue+  |
- *                                 |ness- |ness+ |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
@@ -129,18 +129,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_HASH, KC_DLR,  KC_LPRN, KC_RPRN, KC_GRV,
   KC_TRNS, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                               RGB_MOD, KC_TRNS,
+                                               KC_TRNS, KC_TRNS,
                                                         KC_TRNS,
-                                      RGB_VAD, RGB_VAI, KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,
   // right hand
   KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   KC_TRNS, KC_UP,   KC_7,    KC_8,    KC_9,    KC_ASTR, KC_F12,
   KC_DOWN, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_TRNS,
   KC_TRNS, KC_AMPR, KC_1,    KC_2,    KC_3,    KC_BSLS, KC_TRNS,
   KC_TRNS, KC_DOT,  KC_0,    KC_EQL,  VRSN,
-  RGB_TOG, RGB_SLD,
+  KC_TRNS, KC_TRNS,
   KC_TRNS,
-  KC_TRNS, RGB_HUD, RGB_HUI
+  KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
 /* Keymap 3: Function/Arrow key layer
@@ -250,12 +250,14 @@ void matrix_init_user(void) {
 };
 
 // Runs whenever LED states change
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+bool led_update_user(led_t led_state) {
+    if (led_state.caps_lock) {
         ergodox_right_led_1_on();
     } else {
         ergodox_right_led_1_off();
     }
+
+    return false;
 }
 
 // Runs whenever there is a layer state change.
