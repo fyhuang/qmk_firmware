@@ -4,7 +4,6 @@
 #define BASE 0 // default layer
 #define QWRT 1 // qwerty
 #define SYMB 2 // symbols
-#define FNKEYS 3 // function keys
 
 enum custom_keycodes {
   VRSN = SAFE_RANGE,
@@ -18,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  =/FN  |   1  |   2  |   3  |   4  |   5  |VolDn |           | VolUp|   6  |   7  |   8  |   9  |   0  |   \    |
+ * |  =/SYM |   1  |   2  |   3  |   4  |   5  |VolDn |           | VolUp|   6  |   7  |   8  |   9  |   0  |   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   '  |   ,  |   .  |   P  |   Y  |  Qw  |           | Sym  |   F  |   G  |   C  |   R  |   L  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -38,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [BASE] = LAYOUT_ergodox(
   // left hand
-  LT(FNKEYS,KC_EQL), KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_VOLD,
+  LT(SYMB,KC_EQL),   KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_VOLD,
   KC_TAB,            KC_QUOT,     KC_COMM,       KC_DOT,  KC_P,    KC_Y,    TG(QWRT),
   CTRL_Q,            KC_A,        KC_O,          KC_E,    KC_U,    KC_I,
   KC_LSFT,           KC_SCLN,     KC_Q,          KC_J,    KC_K,    KC_X,    ALL_T(KC_NO),
@@ -108,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
  * |         |   !  |   @  |   {  |   }  |   |  |      |           |      |   Up |   7  |   8  |   9  |   *  |   F12  |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |   #  |   $  |   (  |   )  |   `  |------|           |------| Down |   4  |   5  |   6  |   +  |        |
+ * |         |   #  |   $  |   (  |   )  |   `  |------|           |------| Left | Down |  Up  |Right |   +  |        |
  * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |         |   %  |   ^  |   [  |   ]  |   ~  |      |           |      |   &  |   1  |   2  |   3  |   \  |        |
  * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
@@ -135,55 +134,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand
   KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
   KC_TRNS, KC_UP,   KC_7,    KC_8,    KC_9,    KC_ASTR, KC_F12,
-  KC_DOWN, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_TRNS,
+           KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_PLUS, KC_TRNS,
   KC_TRNS, KC_AMPR, KC_1,    KC_2,    KC_3,    KC_BSLS, KC_TRNS,
-  KC_TRNS, KC_DOT,  KC_0,    KC_EQL,  VRSN,
+                    KC_TRNS, KC_DOT,  KC_0,    KC_EQL,  VRSN,
   KC_TRNS, KC_TRNS,
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-
-/* Keymap 3: Function/Arrow key layer
- *
- * ,---------------------------------------------------.           ,--------------------------------------------------.
- * |         |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  |  F10 |   F11  |
- * |---------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |      |      |      |      |   F12  |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |---------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |         |      |      |      |      |      |      |           |      |      |      |   U  |      |      |        |
- * `---------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |       |      |      |      |      |                                       |   L  |   D  |   R  |      |      |
- *   `-----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------|------|------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
- */
-[FNKEYS] = LAYOUT_ergodox(
-  // left hand
-  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                               KC_TRNS, KC_TRNS,
-                                                        KC_TRNS,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,
-  // right hand
-  KC_TRNS, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_F12,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS,
-  KC_TRNS, KC_TRNS,
-  KC_TRNS,
-  KC_TRNS, KC_TRNS, KC_TRNS
-)
 };
 
 
