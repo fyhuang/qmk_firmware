@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  =/SYM |   1  |   2  |   3  |   4  |   5  |VolDn |           | VolUp|   6  |   7  |   8  |   9  |   0  |   \    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab/SYM|   '  |   ,  |   .  |   P  |   Y  |  Qw  |           | Sym  |   F  |   G  |   C  |   R  |   L  |   /    |
+ * | Tab    |   '  |   ,  |   .  |   P  |   Y  |  Qw  |           | Sym  |   F  |   G  |   C  |   R  |   L  |   /    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Ctl(Q) |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |- or Cmd|
  * |--------+------+------+------+------+------| Hyper|           | Caps |------+------+------+------+------+--------|
@@ -31,14 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        | Del  | Home |       | Esc  | App  |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | End  |       | PgUp |        |      |
- *                                 | Space|Enter |------|       |------|        | Bksp |
+ *                                 | Space|Enter |------|       |------|   Sym  | Bksp |
  *                                 |      |      |Cmd(Q)|       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
 [BASE] = LAYOUT_ergodox(
   // left hand
   LT(SYMB,KC_EQL),   KC_1,        KC_2,          KC_3,    KC_4,    KC_5,    KC_VOLD,
-  LT(SYMB,KC_TAB),            KC_QUOT,     KC_COMM,       KC_DOT,  KC_P,    KC_Y,    TG(QWRT),
+  KC_TAB,            KC_QUOT,     KC_COMM,       KC_DOT,  KC_P,    KC_Y,    TG(QWRT),
   CTRL_Q,            KC_A,        KC_O,          KC_E,    KC_U,    KC_I,
   KC_LSFT,           KC_SCLN,     KC_Q,          KC_J,    KC_K,    KC_X,    ALL_T(KC_NO),
   LT(QWRT,KC_GRV),   CMD_Q,       KC_LALT,       MO(SYMB),KC_ENT,
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                          KC_SPC,  MO(SYMB), KC_LBRC,  KC_RBRC,           KC_TRNS,
   KC_ESC, KC_APP,
   KC_PGUP,
-  KC_PGDN, KC_TRNS, KC_BSPC
+  KC_PGDN, MO(SYMB), KC_BSPC
 ),
 
 /* Keymap 1: QWERTY keys
